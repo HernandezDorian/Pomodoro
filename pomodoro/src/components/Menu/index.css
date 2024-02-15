@@ -1,0 +1,18 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #151932;
+  border-radius: 40px;
+}
+
+.navbar_button {
+  color: #525670;
+  padding: 20px 40px;
+}
+
+.selected_navbar_button {
+  background-color: rgb(250, 112, 114);
+  color: #2b1c2a;
+  border-radius: 40px;
+}

@@ -2,33 +2,41 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgb(27, 27, 27);
+  background: rgb(10, 0, 51);
   background: radial-gradient(
     circle,
-    rgba(27, 27, 27, 1) 0%,
-    rgba(55, 55, 55, 1) 50%,
-    rgba(91, 91, 91, 1) 70%,
-    rgba(51, 46, 40, 1) 95%
+    rgba(10, 0, 51, 1) 0%,
+    rgba(4, 0, 20, 1) 68%,
+    rgba(2, 0, 11, 1) 86%,
+    rgba(1, 0, 6, 1) 95%
   );
+  -webkit-box-shadow: 2px 2px 15px 8px rgba(220, 218, 235, 0.3);
+  box-shadow: 2px 2px 15px 8px rgba(220, 218, 235, 0.3);
   width: 500px;
   height: 500px;
   border-radius: 50%;
+  cursor: pointer;
 }
 .Timer {
   font-size: 8.2em;
   line-height: 1.1;
   font-weight: 500;
-}
-/* 
-.progress-ring {
   position: absolute;
-  width: 500px;
-  height: 500px;
-  border-radius: 50%;
-} */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.progress-ring {
+  transform: rotate(270deg);
+}
 
 .progress-ring__circle {
   transition: stroke-dashoffset 0.35s;
   transform: rotate(-90deg);
   transform-origin: 50% 50%;
+}
+
+.optionsBtn {
+  cursor: pointer;
 }
