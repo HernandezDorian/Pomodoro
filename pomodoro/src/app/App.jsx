@@ -8,17 +8,20 @@ function App() {
   const [pomodoro, setPomodoro] = useState(1500);
   const [shorkBreak, setShorkBreak] = useState(300);
   const [longBreak, setLongBreak] = useState(1800);
+  const [exportType, setExportType] = useState("pom");
+
   return (
     <>
       <header>
         <h1>Pomodoro</h1>
-        <Menu />
+        <Menu exportType={exportType} />
       </header>
       <main>
         <Counter
           pomodoro={pomodoro}
           shortBreak={shorkBreak}
           longBreak={longBreak}
+          setExportType={setExportType}
         />
       </main>
       <footer>

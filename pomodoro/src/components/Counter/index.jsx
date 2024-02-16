@@ -4,7 +4,7 @@ import "./index.css";
 
 // export const pomodoro = 10;
 
-function Counter({ pomodoro, shortBreak, longBreak }) {
+function Counter({ pomodoro, shortBreak, longBreak, setExportType }) {
   const [time, setTime] = useState(0);
   const [second, setSecond] = useState(0);
   const [dixsecond, setDixsecond] = useState(0);
@@ -12,30 +12,7 @@ function Counter({ pomodoro, shortBreak, longBreak }) {
   const [dixminute, setDixminute] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [AcutalTime, setAcutalTime] = useState(pomodoro);
-  const [ActualType, setActualType] = useState(0); // 0 = Pomodoro | 1 - 2 - 3 = ShortBreak | 3 = LongBreak
-
-  const changeType = () => {
-    switch (ActualType) {
-      case 0:
-        setActualType(1);
-        setAcutalTime(pomodoro);
-        reset();
-        setIsRunning(true);
-        break;
-      case (1, 2, 3):
-        setActualType(ActualType + 1);
-        setAcutalTime(shortBreak);
-        reset();
-        setIsRunning(true);
-        break;
-      case 4:
-        setActualType(0);
-        setAcutalTime(longBreak);
-        reset();
-        setIsRunning(true);
-        break;
-    }
-  };
+  const [ActualType, setActualType] = useState(0); // 0 || 2 || 4 || 6 = Pomodoro | 1 || 3 || 5 = ShortBreak | 7 = LongBreak
 
   const radius = 216;
   const circumference = 2 * Math.PI * radius;
@@ -51,6 +28,36 @@ function Counter({ pomodoro, shortBreak, longBreak }) {
   }
 
   useEffect(() => {
+    const changeType = () => {
+      switch (ActualType) {
+        case 1:
+        case 3:
+        case 5: // à faire : Utiliser modulo pour nombre impair et pair afin de rendre le système personnalisable
+          setActualType(ActualType + 1);
+          setAcutalTime(pomodoro);
+          reset();
+          setIsRunning(true);
+          setExportType("pom");
+          break;
+        case 0:
+        case 2:
+        case 4:
+          setActualType(ActualType + 1);
+          setAcutalTime(shortBreak);
+          reset();
+          setIsRunning(true);
+          setExportType("sho");
+          break;
+        case 6:
+          setActualType(0);
+          setAcutalTime(longBreak);
+          reset();
+          setIsRunning(true);
+          setExportType("lon");
+          break;
+      }
+    };
+
     let intervalId;
 
     if (isRunning) {
@@ -60,7 +67,9 @@ function Counter({ pomodoro, shortBreak, longBreak }) {
         setSecond(second + 1);
 
         if (time === AcutalTime - 1) {
+          setIsRunning(false);
           changeType();
+          console.log(ActualType);
         }
 
         if (second === 9) {
@@ -78,7 +87,7 @@ function Counter({ pomodoro, shortBreak, longBreak }) {
         if (dixminute === 6) {
           reset();
         }
-      }, 1);
+      }, 1000);
     }
 
     return () => {
@@ -86,7 +95,20 @@ function Counter({ pomodoro, shortBreak, longBreak }) {
         clearInterval(intervalId);
       }
     };
-  }, [isRunning, time, second, dixsecond, minute, dixminute, AcutalTime]);
+  }, [
+    isRunning,
+    time,
+    second,
+    dixsecond,
+    minute,
+    dixminute,
+    AcutalTime,
+    ActualType,
+    longBreak,
+    pomodoro,
+    shortBreak,
+    setExportType,
+  ]);
 
   return (
     <div
@@ -126,6 +148,7 @@ Counter.propTypes = {
   pomodoro: PropTypes.number.isRequired,
   shortBreak: PropTypes.number.isRequired,
   longBreak: PropTypes.number.isRequired,
+  setExportType: PropTypes.func.isRequired,
 };
 
 export default Counter;
