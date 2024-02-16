@@ -25,7 +25,14 @@ function App() {
         />
       </main>
       <footer>
-        <Options pomodoro={pomodoro} setPomodoro={setPomodoro} />
+        <Options
+          pomodoro={pomodoro}
+          setPomodoro={setPomodoro}
+          shorkBreak={shorkBreak}
+          setShorkBreak={setShorkBreak}
+          longBreak={longBreak}
+          setLongBreak={setLongBreak}
+        />
       </footer>
     </>
   );

@@ -12,11 +12,16 @@ function Counter({ pomodoro, shortBreak, longBreak, setExportType }) {
   const [dixminute, setDixminute] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [AcutalTime, setAcutalTime] = useState(pomodoro);
-  const [ActualType, setActualType] = useState(0); // 0 || 2 || 4 || 6 = Pomodoro | 1 || 3 || 5 = ShortBreak | 7 = LongBreak
+  const [ActualType, setActualType] = useState(1);
 
   const radius = 216;
   const circumference = 2 * Math.PI * radius;
   const progress = ((time / AcutalTime) * 100 * circumference) / 100;
+
+  useEffect(() => {
+    reset();
+    setAcutalTime(pomodoro);
+  }, [longBreak, pomodoro, shortBreak]);
 
   function reset() {
     setTime(0);
@@ -29,35 +34,31 @@ function Counter({ pomodoro, shortBreak, longBreak, setExportType }) {
 
   useEffect(() => {
     const changeType = () => {
-      switch (ActualType) {
-        case 1:
-        case 3:
-        case 5: // à faire : Utiliser modulo pour nombre impair et pair afin de rendre le système personnalisable
+      switch (ActualType % 2) {
+        case 0:
           setActualType(ActualType + 1);
           setAcutalTime(pomodoro);
           reset();
           setIsRunning(true);
           setExportType("pom");
           break;
-        case 0:
-        case 2:
-        case 4:
+        case 1:
           setActualType(ActualType + 1);
           setAcutalTime(shortBreak);
           reset();
           setIsRunning(true);
           setExportType("sho");
           break;
-        case 6:
-          setActualType(0);
-          setAcutalTime(longBreak);
-          reset();
-          setIsRunning(true);
-          setExportType("lon");
-          break;
+      }
+
+      if (ActualType === 7) {
+        setActualType(0);
+        setAcutalTime(longBreak);
+        reset();
+        setIsRunning(true);
+        setExportType("lon");
       }
     };
-
     let intervalId;
 
     if (isRunning) {
@@ -66,7 +67,7 @@ function Counter({ pomodoro, shortBreak, longBreak, setExportType }) {
 
         setSecond(second + 1);
 
-        if (time === AcutalTime - 1) {
+        if (time === AcutalTime - 1 || time === AcutalTime) {
           setIsRunning(false);
           changeType();
           console.log(ActualType);
