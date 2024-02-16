@@ -12,7 +12,18 @@
 }
 
 .selected_navbar_button {
-  background-color: rgb(250, 112, 114);
   color: #2b1c2a;
   border-radius: 40px;
+}
+
+.color_orange {
+  background-color: rgb(250, 112, 114);
+}
+
+.color_yellow {
+  background-color: rgb(248, 245, 39);
+}
+
+.color_green {
+  background-color: rgb(39, 248, 39);
 }

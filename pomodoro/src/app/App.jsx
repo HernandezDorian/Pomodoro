@@ -22,6 +22,7 @@ function App() {
           shortBreak={shorkBreak}
           longBreak={longBreak}
           setExportType={setExportType}
+          exportType={exportType}
         />
       </main>
       <footer>

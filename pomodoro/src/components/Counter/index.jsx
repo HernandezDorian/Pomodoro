@@ -1,10 +1,17 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import "./index.css";
+import clochetteSound from "./../../assets/Clochette.mp3";
 
 // export const pomodoro = 10;
 
-function Counter({ pomodoro, shortBreak, longBreak, setExportType }) {
+function Counter({
+  pomodoro,
+  shortBreak,
+  longBreak,
+  exportType,
+  setExportType,
+}) {
   const [time, setTime] = useState(0);
   const [second, setSecond] = useState(0);
   const [dixsecond, setDixsecond] = useState(0);
@@ -17,11 +24,26 @@ function Counter({ pomodoro, shortBreak, longBreak, setExportType }) {
   const radius = 216;
   const circumference = 2 * Math.PI * radius;
   const progress = ((time / AcutalTime) * 100 * circumference) / 100;
+  let color = "rgb(250, 112, 114)";
+
+  switch (exportType) {
+    case "pom":
+      color = "rgb(250, 112, 114)";
+      break;
+    case "sho":
+      color = "rgb(248, 245, 39)";
+      break;
+    case "lon":
+      color = "rgb(39, 248, 39)";
+      break;
+  }
 
   useEffect(() => {
-    reset();
+    setExportType("pom");
+    setActualType(1);
     setAcutalTime(pomodoro);
-  }, [longBreak, pomodoro, shortBreak]);
+    reset();
+  }, [longBreak, pomodoro, shortBreak, setExportType]);
 
   function reset() {
     setTime(0);
@@ -35,14 +57,14 @@ function Counter({ pomodoro, shortBreak, longBreak, setExportType }) {
   useEffect(() => {
     const changeType = () => {
       switch (ActualType % 2) {
-        case 0:
+        case 0: // pomodoro
           setActualType(ActualType + 1);
           setAcutalTime(pomodoro);
           reset();
           setIsRunning(true);
           setExportType("pom");
           break;
-        case 1:
+        case 1: // shortBreak
           setActualType(ActualType + 1);
           setAcutalTime(shortBreak);
           reset();
@@ -52,7 +74,8 @@ function Counter({ pomodoro, shortBreak, longBreak, setExportType }) {
       }
 
       if (ActualType === 7) {
-        setActualType(0);
+        // Longbreak
+        setActualType(1);
         setAcutalTime(longBreak);
         reset();
         setIsRunning(true);
@@ -69,6 +92,10 @@ function Counter({ pomodoro, shortBreak, longBreak, setExportType }) {
 
         if (time === AcutalTime - 1 || time === AcutalTime) {
           setIsRunning(false);
+          const audio = new Audio(clochetteSound);
+          audio
+            .play()
+            .catch((error) => console.log("Auto-play was not allowed", error));
           changeType();
           console.log(ActualType);
         }
@@ -130,7 +157,7 @@ function Counter({ pomodoro, shortBreak, longBreak, setExportType }) {
         />
         <circle
           className="progress-ring__progress"
-          stroke="rgb(250, 112, 114)"
+          stroke={`${color}`}
           strokeWidth="20"
           fill="transparent"
           r={radius}
@@ -150,6 +177,7 @@ Counter.propTypes = {
   shortBreak: PropTypes.number.isRequired,
   longBreak: PropTypes.number.isRequired,
   setExportType: PropTypes.func.isRequired,
+  exportType: PropTypes.string.isRequired,
 };
 
 export default Counter;
