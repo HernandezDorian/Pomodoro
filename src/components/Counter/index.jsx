@@ -155,6 +155,9 @@ function Counter({
           cx="240"
           cy="240"
         />
+        <foreignObject x="0" y="67" width="500" height="500">
+          <div className="Timer">{`${dixminute}${minute}:${dixsecond}${second}`}</div>
+        </foreignObject>
         <circle
           className="progress-ring__progress"
           stroke={`${color}`}
@@ -167,7 +170,6 @@ function Counter({
           strokeDashoffset={circumference - progress}
         />
       </svg>
-      <div className="Timer">{`${dixminute}${minute}:${dixsecond}${second}`}</div>
     </div>
   );
 }
