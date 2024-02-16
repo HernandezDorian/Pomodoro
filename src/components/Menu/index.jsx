@@ -9,14 +9,14 @@ function Menu({ exportType }) {
           exportType === "pom" ? "selected_navbar_button color_orange" : ""
         }`}
       >
-        pomdoro
+        pomodoro
       </span>
       <span
         className={`navbar_button ${
           exportType === "sho" ? "selected_navbar_button color_yellow" : ""
         }`}
       >
-        shork break
+        short break
       </span>
       <span
         className={`navbar_button ${
