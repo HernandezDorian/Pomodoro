@@ -42,3 +42,10 @@
 .optionsBtn {
   cursor: pointer;
 }
+
+@media (max-width: 580px) {
+  .Counter {
+    width: 100%;
+    height: auto;
+  }
+}

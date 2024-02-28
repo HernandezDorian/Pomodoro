@@ -4,6 +4,7 @@
   justify-content: space-between;
   background-color: #151932;
   border-radius: 40px;
+  max-height: 64px;
 }
 
 .navbar_button {
@@ -26,4 +27,15 @@
 
 .color_green {
   background-color: rgb(39, 248, 39);
+}
+
+@media (max-width: 580px) {
+  .navbar_button {
+    padding: 10px 20px;
+  }
+}
+@media (max-width: 350px) {
+  .navbar_button {
+    padding: 7px 14px;
+  }
 }

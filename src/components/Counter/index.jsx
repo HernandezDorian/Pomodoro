@@ -12,6 +12,44 @@ function Counter({
   exportType,
   setExportType,
 }) {
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup function to remove the event listener
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    if (windowWidth < 580) {
+      setSize(300);
+      setFontSize(80);
+      setXValue(0);
+      setYValue(55);
+      setDivSize(310);
+      setmarginTimer(50);
+    } else {
+      setSize(480);
+      setFontSize(120);
+      setXValue(0);
+      setYValue(72);
+      setDivSize(500);
+      setmarginTimer(100);
+    }
+  }, [windowWidth]); // Re-run this effect when windowWidth changes
+
+  const [size, setSize] = useState(480);
+  const [fontSize, setFontSize] = useState(120);
+  const [xValue, setXValue] = useState(0);
+  const [yValue, setYValue] = useState(72);
+  const [divSize, setDivSize] = useState(500);
+  const [marginTimer, setmarginTimer] = useState(100);
+
   const [time, setTime] = useState(0);
   const [second, setSecond] = useState(0);
   const [dixsecond, setDixsecond] = useState(0);
@@ -21,7 +59,7 @@ function Counter({
   const [AcutalTime, setAcutalTime] = useState(pomodoro);
   const [ActualType, setActualType] = useState(1);
 
-  const radius = 216;
+  const radius = size / 2.15; // 216
   const circumference = 2 * Math.PI * radius;
   const progress = ((time / AcutalTime) * 100 * circumference) / 100;
   let color = "rgb(250, 112, 114)";
@@ -143,20 +181,24 @@ function Counter({
       onClick={() => {
         setIsRunning(!isRunning);
       }}
+      style={{ width: divSize, height: divSize }}
       className="Counter"
     >
-      <svg className="progress-ring" width="480" height="480">
+      <svg className="progress-ring" width={size} height={size}>
         <circle
           className="progress-ring__circle"
           stroke="grey"
           strokeWidth="20"
           fill="transparent"
           r={radius}
-          cx="240"
-          cy="240"
+          cx={size / 2}
+          cy={size / 2}
         />
-        <foreignObject x="0" y="67" width="500" height="500">
-          <div className="Timer">{`${dixminute}${minute}:${dixsecond}${second}`}</div>
+        <foreignObject x={xValue} y={yValue} width={size} height={size}>
+          <div
+            className="Timer"
+            style={{ fontSize: fontSize, margin: marginTimer }}
+          >{`${dixminute}${minute}:${dixsecond}${second}`}</div>
         </foreignObject>
         <circle
           className="progress-ring__progress"
@@ -164,8 +206,8 @@ function Counter({
           strokeWidth="20"
           fill="transparent"
           r={radius}
-          cx="240"
-          cy="240"
+          cx={size / 2}
+          cy={size / 2}
           strokeDasharray={circumference}
           strokeDashoffset={circumference - progress}
         />
