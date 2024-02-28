@@ -11,6 +11,7 @@ function Counter({
   longBreak,
   exportType,
   setExportType,
+  pomAvLongBreak,
 }) {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -57,7 +58,7 @@ function Counter({
   const [dixminute, setDixminute] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [AcutalTime, setAcutalTime] = useState(pomodoro);
-  const [ActualType, setActualType] = useState(1);
+  const [ActualType, setActualType] = useState(0);
 
   const radius = size / 2.15; // 216
   const circumference = 2 * Math.PI * radius;
@@ -94,30 +95,30 @@ function Counter({
 
   useEffect(() => {
     const changeType = () => {
-      switch (ActualType % 2) {
-        case 0: // pomodoro
-          setActualType(ActualType + 1);
-          setAcutalTime(pomodoro);
-          reset();
-          setIsRunning(true);
-          setExportType("pom");
-          break;
-        case 1: // shortBreak
-          setActualType(ActualType + 1);
-          setAcutalTime(shortBreak);
-          reset();
-          setIsRunning(true);
-          setExportType("sho");
-          break;
-      }
-
-      if (ActualType === 7) {
+      if (ActualType === pomAvLongBreak * 2 - 1) {
         // Longbreak
-        setActualType(1);
+        setActualType(0);
         setAcutalTime(longBreak);
         reset();
         setIsRunning(true);
         setExportType("lon");
+      } else {
+        switch (ActualType % 2) {
+          case 0: // pomodoro
+            setActualType(ActualType + 1);
+            setAcutalTime(pomodoro);
+            reset();
+            setIsRunning(true);
+            setExportType("pom");
+            break;
+          case 1: // shortBreak
+            setActualType(ActualType + 1);
+            setAcutalTime(shortBreak);
+            reset();
+            setIsRunning(true);
+            setExportType("sho");
+            break;
+        }
       }
     };
     let intervalId;
@@ -174,6 +175,7 @@ function Counter({
     pomodoro,
     shortBreak,
     setExportType,
+    pomAvLongBreak,
   ]);
 
   return (
@@ -222,6 +224,7 @@ Counter.propTypes = {
   longBreak: PropTypes.number.isRequired,
   setExportType: PropTypes.func.isRequired,
   exportType: PropTypes.string.isRequired,
+  pomAvLongBreak: PropTypes.number.isRequired,
 };
 
 export default Counter;

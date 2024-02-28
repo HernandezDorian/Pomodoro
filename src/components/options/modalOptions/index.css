@@ -36,21 +36,20 @@
   justify-content: center;
 }
 
-.ModalTime {
+.ModalElem {
   display: flex;
   flex-direction: column;
   text-align: left;
   padding-bottom: 20px;
-  /* border-bottom: 1px solid rgba(65, 65, 65, 0.267); */
 }
 
-.ModalTimeConfig {
+.ModalForm {
   display: flex;
   color: gray;
   gap: 10px;
 }
 
-.ModalTimeConfig input {
+.ModalForm input {
   background-color: #eef1fa;
   border: none;
   padding: 10px 10px;
@@ -71,7 +70,7 @@
   font-weight: 600;
 }
 @media (max-width: 580px) {
-  .ModalTimeConfig {
+  .ModalForm {
     flex-direction: column;
   }
   .ModalOptions {

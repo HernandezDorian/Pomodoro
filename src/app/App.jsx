@@ -9,6 +9,7 @@ function App() {
   const [shorkBreak, setShorkBreak] = useState(300);
   const [longBreak, setLongBreak] = useState(1800);
   const [exportType, setExportType] = useState("pom");
+  const [pomAvLongBreak, setPomAvLongBreak] = useState(4);
 
   return (
     <>
@@ -23,6 +24,7 @@ function App() {
           longBreak={longBreak}
           setExportType={setExportType}
           exportType={exportType}
+          pomAvLongBreak={pomAvLongBreak}
         />
       </main>
       <footer>
@@ -33,6 +35,8 @@ function App() {
           setShorkBreak={setShorkBreak}
           longBreak={longBreak}
           setLongBreak={setLongBreak}
+          pomAvLongBreak={pomAvLongBreak}
+          setPomAvLongBreak={setPomAvLongBreak}
         />
       </footer>
     </>

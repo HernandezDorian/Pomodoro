@@ -10,6 +10,8 @@ function ModalOptions({
   setShorkBreak,
   longBreak,
   setLongBreak,
+  pomAvLongBreak,
+  setPomAvLongBreak,
 }) {
   const closeModal = () => {
     setIsModalOpen(false);
@@ -18,6 +20,7 @@ function ModalOptions({
   const pomodoroRef = useRef();
   const shorkBreakRef = useRef();
   const longBreakRef = useRef();
+  const pomAvLongBreakRef = useRef();
 
   const pomodoroMin = pomodoro / 60;
   const shorkBreakMin = shorkBreak / 60;
@@ -27,6 +30,7 @@ function ModalOptions({
     setPomodoro(pomodoroRef.current.value * 60);
     setShorkBreak(shorkBreakRef.current.value * 60);
     setLongBreak(longBreakRef.current.value * 60);
+    setPomAvLongBreak(pomAvLongBreakRef.current.value);
     closeModal();
   };
 
@@ -43,9 +47,9 @@ function ModalOptions({
           X
         </button>
       </div>
-      <div className="ModalTime">
+      <div className="ModalTime ModalElem">
         <h3>TIME (MINUTES)</h3>
-        <form className="ModalTimeConfig">
+        <form className="ModalTimeConfig ModalForm">
           <label>
             Pomodoro
             <br></br>
@@ -73,6 +77,19 @@ function ModalOptions({
           </label>
         </form>
       </div>
+      <div className="ModalNbrPom ModalElem">
+        <h3>🍎 UNTIL LONGBREAK</h3>
+        <form className="ModalPomNbrConfig ModalForm">
+          <label>
+            N° of pomodoro<br></br>
+            <input
+              type="number"
+              defaultValue={pomAvLongBreak}
+              ref={pomAvLongBreakRef}
+            ></input>
+          </label>
+        </form>
+      </div>
 
       <button className="ValidModalBtn" onClick={handleApply}>
         Apply
@@ -89,6 +106,8 @@ ModalOptions.propTypes = {
   setShorkBreak: PropTypes.func.isRequired,
   longBreak: PropTypes.number.isRequired,
   setLongBreak: PropTypes.func.isRequired,
+  pomAvLongBreak: PropTypes.number.isRequired,
+  setPomAvLongBreak: PropTypes.func.isRequired,
 };
 
 export default ModalOptions;

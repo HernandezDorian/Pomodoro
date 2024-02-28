@@ -10,6 +10,8 @@ function Options({
   setShorkBreak,
   longBreak,
   setLongBreak,
+  pomAvLongBreak,
+  setPomAvLongBreak,
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   // const updatePomodoro = () => {
@@ -36,6 +38,8 @@ function Options({
           longBreak={longBreak}
           setLongBreak={setLongBreak}
           setIsModalOpen={setIsModalOpen}
+          pomAvLongBreak={pomAvLongBreak}
+          setPomAvLongBreak={setPomAvLongBreak}
         />
       )}
     </>
@@ -49,6 +53,8 @@ Options.propTypes = {
   setShorkBreak: PropTypes.func.isRequired,
   longBreak: PropTypes.number.isRequired,
   setLongBreak: PropTypes.func.isRequired,
+  pomAvLongBreak: PropTypes.number.isRequired,
+  setPomAvLongBreak: PropTypes.func.isRequired,
 };
 
 export default Options;
