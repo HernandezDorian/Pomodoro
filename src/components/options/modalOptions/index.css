@@ -70,3 +70,22 @@
   color: #fff;
   font-weight: 600;
 }
+@media (max-width: 580px) {
+  .ModalTimeConfig {
+    flex-direction: column;
+  }
+  .ModalOptions {
+    width: 80%;
+    height: auto;
+  }
+}
+
+@media (max-width: 350px) {
+  .ModalOptions {
+    padding: 5px;
+  }
+  .ValidModalBtn {
+    margin-bottom: -20px !important;
+    margin-top: 0px !important;
+  }
+}

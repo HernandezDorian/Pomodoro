@@ -26,7 +26,7 @@ function Counter({
   }, []);
 
   useEffect(() => {
-    if (windowWidth < 580) {
+    if (windowWidth < 581) {
       setSize(300);
       setFontSize(80);
       setXValue(0);
