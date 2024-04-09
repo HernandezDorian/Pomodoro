@@ -201,6 +201,7 @@ function Counter({
             className="Timer"
             style={{ fontSize: fontSize, margin: marginTimer }}
           >{`${dixminute}${minute}:${dixsecond}${second}`}</div>
+          {!isRunning && <p>PAUSED</p>}
         </foreignObject>
         <circle
           className="progress-ring__progress"
